@@ -3,11 +3,52 @@
     android:layout_height="match_parent" android:paddingLeft="8dp"
     android:paddingRight="8dp"
     android:paddingTop="8dp"
+    android:orientation="vertical"
     android:paddingBottom="8dp" tools:context=".MainActivity">
 
-    <ListView
-        android:id="@+id/postList"
+   <Button
+       android:id="@+id/prayers"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_marginBottom="8sp"
+       android:layout_marginEnd="8sp"
+       android:layout_marginStart="8sp"
+       android:text="Prayers" />
+
+    <Button
+        android:id="@+id/calendar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8sp"
+        android:layout_marginEnd="8sp"
+        android:layout_marginStart="8sp"
+        android:text="calendar" />
+
+    <Button
+        android:id="@+id/candles"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8sp"
+        android:layout_marginEnd="8sp"
+        android:layout_marginStart="8sp"
+        android:text="candles" />
+
+    <Button
+        android:id="@+id/about"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8sp"
+        android:layout_marginEnd="8sp"
+        android:layout_marginStart="8sp"
+        android:text="About" />
+
+    <Button
+        android:id="@+id/gallery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8sp"
+        android:layout_marginEnd="8sp"
+        android:layout_marginStart="8sp"
+        android:text="Gallery" />
 
 </LinearLayout>
