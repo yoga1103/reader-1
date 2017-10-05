@@ -67,5 +67,4 @@ public class MainActivity extends AppCompatActivity {
                 loadPage(280, "cat");
             }
         };
-
 }
