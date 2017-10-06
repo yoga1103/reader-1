@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
+
+import static com.example.shaany.reader.R.id.announcements;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -18,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     ImageButton Twitter;
     ImageButton Facebook;
     ImageButton Instagram;
+    ImageButton Notifications;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         Twitter = (ImageButton) findViewById(R.id.Twitter);
         Facebook = (ImageButton) findViewById(R.id.Facebook);
         Instagram = (ImageButton) findViewById(R.id.Instagram);
+        Notifications = (ImageButton) findViewById(R.id.announcements);
         prayers.setOnClickListener(prayerHandler);
         calendar.setOnClickListener(calendarHandler);
         candles.setOnClickListener(candleHandler);
@@ -39,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         Twitter.setOnClickListener(TwitterHandler);
         Facebook.setOnClickListener(FacebookHandler);
         Instagram.setOnClickListener(InstagramHandler);
+        Notifications.setOnClickListener(notificationHandler);
     }
 
         public void loadPage(int id, String div) {
@@ -68,13 +74,19 @@ public class MainActivity extends AppCompatActivity {
 
         View.OnClickListener aboutHandler = new View.OnClickListener() {
             public void onClick(View v) {
-                loadPage(276, "cat");
+                loadPage(276, "aboutnf");
+            }
+        };
+
+        View.OnClickListener notificationHandler = new View.OnClickListener() {
+            public void onClick(View v) {
+                loadPage(390, "announce");
             }
         };
 
         View.OnClickListener galleryHandler = new View.OnClickListener() {
             public void onClick(View v) {
-                loadPage(280, "cat");
+                loadPage(280, "gallery");
             }
         };
 

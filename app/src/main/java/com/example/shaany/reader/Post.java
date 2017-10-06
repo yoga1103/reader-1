@@ -58,18 +58,20 @@ public class Post extends AppCompatActivity {
                 //get the specific html to display
                 selection = mapContent.toString();
                 Document doc = Jsoup.parse(selection, "UTF-8");
+                doc.head().getElementsByTag("link").remove();
+                doc.head().appendElement("link").attr("rel", "stylesheet").attr("type", "text/css").attr("href", "mystyle.css");
                 //if the div name is cat
                 if (div.equals("cat")) {
                     Elements stuff = doc.getAllElements();
                     //display it
                     String load = stuff.toString();
-                    content.loadData(load, "text/html", "UTF-8");
+                    content.loadDataWithBaseURL("file:///android_asset/mystyle", load, "text/html", "UTF-8", null);
                     //if the div name isn't cat
                 } else {
                     Element stuff = doc.getElementById(div);
                     //display it
                     String load = stuff.toString();
-                    content.loadData(load, "text/html", "UTF-8");
+                    content.loadDataWithBaseURL("file:///android_asset/mystyle", load, "text/html", "UTF-8", null);
                 }
 
                 progressDialog.dismiss();

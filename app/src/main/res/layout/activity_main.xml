@@ -5,17 +5,8 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:orientation="vertical"
-    android:weightSum="3.45"
+    android:weightSum="3.15"
     tools:context="com.example.shaany.reader.MainActivity">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.3"
-        android:gravity="center"
-        android:paddingStart="8sp"
-        android:text="Announcements"
-        android:textSize="20sp" />
 
     <LinearLayout
         android:id="@+id/one"
