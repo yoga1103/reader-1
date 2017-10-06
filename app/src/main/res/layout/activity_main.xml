@@ -1,54 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="8dp"
-    android:paddingRight="8dp"
-    android:paddingTop="8dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     android:orientation="vertical"
-    android:paddingBottom="8dp" tools:context=".MainActivity">
+    android:weightSum="3.45"
+    tools:context="com.example.shaany.reader.MainActivity">
 
-   <Button
-       android:id="@+id/prayers"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:layout_marginBottom="8sp"
-       android:layout_marginEnd="8sp"
-       android:layout_marginStart="8sp"
-       android:text="Prayers" />
-
-    <Button
-        android:id="@+id/calendar"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8sp"
-        android:layout_marginEnd="8sp"
-        android:layout_marginStart="8sp"
-        android:text="calendar" />
+        android:layout_height="0dp"
+        android:layout_weight="0.3"
+        android:gravity="center"
+        android:paddingStart="8sp"
+        android:text="Announcements"
+        android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/candles"
+    <LinearLayout
+        android:id="@+id/one"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8sp"
-        android:layout_marginEnd="8sp"
-        android:layout_marginStart="8sp"
-        android:text="candles" />
+        android:layout_height="0dp"
+        android:layout_weight="0.9"
+        android:orientation="horizontal"
+        android:weightSum="3">
 
-    <Button
-        android:id="@+id/about"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8sp"
-        android:layout_marginEnd="8sp"
-        android:layout_marginStart="8sp"
-        android:text="About" />
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="8sp"
+            android:layout_marginStart="8sp"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/img" />
 
-    <Button
-        android:id="@+id/gallery"
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="8sp"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text="Bahá'ís Of North Florida"
+            android:textColor="#FFFF00"
+            android:textSize="30sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/two"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8sp"
-        android:layout_marginEnd="8sp"
-        android:layout_marginStart="8sp"
-        android:text="Gallery" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <ImageButton
+            android:id="@+id/prayer"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="8sp"
+            android:layout_marginEnd="8sp"
+            android:layout_marginStart="8sp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:src="@drawable/one" />
+
+        <ImageButton
+            android:id="@+id/calendar"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="8sp"
+            android:layout_marginEnd="8sp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:src="@drawable/calendar" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/three"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.9"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <ImageButton
+            android:id="@+id/candles"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="8sp"
+            android:layout_marginEnd="8sp"
+            android:layout_marginStart="8sp"
+            android:layout_weight="1"
+            android:background="#FFFF"
+            android:scaleType="fitCenter"
+            android:src="@null" />
+
+        <ImageButton
+            android:id="@+id/gallery"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="8sp"
+            android:layout_marginEnd="8sp"
+            android:layout_weight="1"
+            android:background="#FFFF"
+            android:scaleType="fitCenter"
+            android:src="@null" />
+
+        <ImageButton
+            android:id="@+id/about"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="8sp"
+            android:layout_marginEnd="8sp"
+            android:layout_weight="1"
+            android:background="#FFFF"
+            android:scaleType="fitCenter"
+            android:src="@null" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/four"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.4"
+        android:weightSum="3">
+
+        <ImageButton
+            android:id="@+id/Twitter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="8sp"
+            android:layout_marginEnd="8sp"
+            android:layout_marginStart="8sp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:padding="4sp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/twitter" />
+
+        <ImageButton
+            android:id="@+id/Facebook"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="8sp"
+            android:layout_marginEnd="8sp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:padding="4sp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/facebook" />
+
+        <ImageButton
+            android:id="@+id/Instagram"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="8sp"
+            android:layout_marginEnd="8sp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:padding="4sp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/instagram" />
+
+    </LinearLayout>
+
 
 </LinearLayout>
