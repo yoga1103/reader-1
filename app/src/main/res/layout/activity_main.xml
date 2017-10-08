@@ -5,32 +5,46 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:orientation="vertical"
-    android:weightSum="3.15"
+    android:weightSum="3.1"
     tools:context="com.example.shaany.reader.MainActivity">
+
+
+    <ImageButton
+        android:id="@+id/notifications"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.2"
+        android:scaleType="center"
+        android:layout_gravity="end"
+        android:background="@null"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/notificatio"/>
 
     <LinearLayout
         android:id="@+id/one"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.9"
+        android:layout_weight="0.6"
         android:orientation="horizontal"
         android:weightSum="3">
 
         <ImageView
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="8sp"
             android:layout_marginStart="8sp"
             android:layout_weight="1"
+            android:layout_gravity="bottom"
             android:scaleType="fitCenter"
             android:src="@drawable/img" />
 
         <TextView
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="8sp"
             android:layout_weight="2"
             android:gravity="center"
+            android:paddingTop="25dp"
             android:text="Bahá'ís Of North Florida"
             android:textColor="#FFFF00"
             android:textSize="30sp" />
@@ -86,9 +100,9 @@
             android:layout_marginEnd="8sp"
             android:layout_marginStart="8sp"
             android:layout_weight="1"
-            android:background="#FFFF"
+            android:background="@null"
             android:scaleType="fitCenter"
-            android:src="@null" />
+            android:src="@drawable/candles" />
 
         <ImageButton
             android:id="@+id/gallery"
@@ -97,9 +111,9 @@
             android:layout_marginBottom="8sp"
             android:layout_marginEnd="8sp"
             android:layout_weight="1"
-            android:background="#FFFF"
+            android:background="@null"
             android:scaleType="fitCenter"
-            android:src="@null" />
+            android:src="@drawable/gallery" />
 
         <ImageButton
             android:id="@+id/about"
@@ -108,9 +122,9 @@
             android:layout_marginBottom="8sp"
             android:layout_marginEnd="8sp"
             android:layout_weight="1"
-            android:background="#FFFF"
+            android:background="@null"
             android:scaleType="fitCenter"
-            android:src="@null" />
+            android:src="@drawable/about" />
 
     </LinearLayout>
 

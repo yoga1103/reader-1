@@ -1,10 +1,12 @@
+//package name change it to youre own
 package com.example.shaany.reader;
 
-
+//imports
 import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,76 +17,113 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+
+import java.io.IOException;
 import java.util.Map;
+
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+
+//main function
 public class Post extends AppCompatActivity {
-    TextView title;
     WebView content;
-    ProgressDialog progressDialog;
+    ProgressDialog progressDialog;//deprecated don't use
     Gson gson;
     Map<String, Object> mapPost;
     Map<String, Object> mapContent;
     String selection;
 
+    //onCreate
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post);
 
+        //these vars have to be Finals for some reason beyond my understanding
         final String id = getIntent().getExtras().getString("id");
         final String div = getIntent().getExtras().getString("div");
+        final String link = getIntent().getExtras().getString("link");
 
-        title = (TextView) findViewById(R.id.title);
+        //initialise the webview
         content = (WebView) findViewById(R.id.content);
         content.getSettings().setJavaScriptEnabled(true);
+        content.setWebViewClient(new WebViewClient());
 
+        //progress spinner this is deprecated so change it
         progressDialog = new ProgressDialog(Post.this);
         progressDialog.setMessage("Loading...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.show();
 
-        String url = "https://bahainf.mystagingwebsite.com/wp-json/wp/v2/pages/" + id + "";
+        /*
+        if the page to load is the "gallery" or "calendar"
+        then just load the HTML "div" we want in the webview
+        TODO this does'nt work
+         */
+        if (div.equalsIgnoreCase("cat")) {
+            Connection.Response response = null;
+            try {
+                response = Jsoup.connect(link)
+                        .userAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.21 (KHTML, like Gecko) Chrome/19.0.1042.0 Safari/535.21")
+                        .timeout(10000)
+                        .execute();
+            } catch (IOException e) {
+                System.out.println("io - "+e);
+            }
 
-        StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String s) {
-                gson = new Gson();
-                mapPost = (Map<String, Object>) gson.fromJson(s, Map.class);
-                mapContent = (Map<String, Object>) mapPost.get("content");
-                //get the specific html to display
-                selection = mapContent.toString();
-                Document doc = Jsoup.parse(selection, "UTF-8");
-                doc.head().getElementsByTag("link").remove();
-                doc.head().appendElement("link").attr("rel", "stylesheet").attr("type", "text/css").attr("href", "mystyle.css");
-                //if the div name is cat
-                if (div.equals("cat")) {
-                    Elements stuff = doc.getAllElements();
-                    //display it
-                    String load = stuff.toString();
-                    content.loadDataWithBaseURL("file:///android_asset/mystyle", load, "text/html", "UTF-8", null);
-                    //if the div name isn't cat
-                } else {
-                    Element stuff = doc.getElementById(div);
-                    //display it
-                    String load = stuff.toString();
-                    content.loadDataWithBaseURL("file:///android_asset/mystyle", load, "text/html", "UTF-8", null);
+            try {
+                Document doc = response.parse();
+                Element stuff = doc.getElementById("idofgallery");
+                String load = stuff.toString();
+                content.loadData(load, "text/html", "UTF-8");
+            } catch (IOException e) {
+                System.out.println("io -"+e);
+            }
+            //if not load the json
+            //this part works
+        } else {
+            String url = "https://bahainf.mystagingwebsite.com/wp-json/wp/v2/pages/" + id + "";
+
+            StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String s) {
+                    gson = new Gson();
+                    mapPost = (Map<String, Object>) gson.fromJson(s, Map.class);
+                    mapContent = (Map<String, Object>) mapPost.get("content");
+                    //get the specific html to display
+                    selection = mapContent.toString();
+                    Document doc = Jsoup.parse(selection, "UTF-8");
+                    //if the div name is cat
+                    if (div.equals("cat")) {
+                        Elements stuff = doc.getAllElements();
+                        String load = stuff.toString();
+                        content.loadData(load, "text/html", "UTF-8");
+                        //if the div name isn't cat
+                    } else {
+                        Element stuff = doc.getElementById(div);
+                        //display it
+                        String load = stuff.toString();
+                        content.loadData(load, "text/html", "UTF-8");
+                    }
+
+                    progressDialog.dismiss();
+                    //if there's an error report it
                 }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError volleyError) {
+                    progressDialog.dismiss();
+                    Toast.makeText(Post.this, "Oh no! an error occurred loading this page", Toast.LENGTH_SHORT).show();
+                }
+            });
 
-                progressDialog.dismiss();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                progressDialog.dismiss();
-                Toast.makeText(Post.this, id, Toast.LENGTH_LONG).show();
-            }
-        });
+            RequestQueue rQueue = Volley.newRequestQueue(Post.this);
+            rQueue.add(request);
 
-        RequestQueue rQueue = Volley.newRequestQueue(Post.this);
-        rQueue.add(request);
+        }
     }
 }

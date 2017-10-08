@@ -6,10 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.TextView;
-
-import static com.example.shaany.reader.R.id.announcements;
-
+import android.content.Context;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,10 +19,12 @@ public class MainActivity extends AppCompatActivity {
     ImageButton Facebook;
     ImageButton Instagram;
     ImageButton Notifications;
+    final Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //vars
         setContentView(R.layout.activity_main);
         prayers = (ImageButton) findViewById(R.id.prayer);
         calendar = (ImageButton) findViewById(R.id.calendar);
@@ -35,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
         Twitter = (ImageButton) findViewById(R.id.Twitter);
         Facebook = (ImageButton) findViewById(R.id.Facebook);
         Instagram = (ImageButton) findViewById(R.id.Instagram);
-        Notifications = (ImageButton) findViewById(R.id.announcements);
+        Notifications = (ImageButton) findViewById(R.id.notifications);
+        //set click listeners
         prayers.setOnClickListener(prayerHandler);
         calendar.setOnClickListener(calendarHandler);
         candles.setOnClickListener(candleHandler);
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         Instagram.setOnClickListener(InstagramHandler);
         Notifications.setOnClickListener(notificationHandler);
     }
-
+        //tells post.java what post to load
         public void loadPage(int id, String div) {
             Intent intent = new Intent(getApplicationContext(),Post.class);
             intent.putExtra("id", ""+id);
@@ -54,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
+        /*
+        the button handlers
+         */
         View.OnClickListener prayerHandler = new View.OnClickListener() {
             public void onClick(View v) {
                 loadPage(177, "prayers");
@@ -62,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
         View.OnClickListener calendarHandler = new View.OnClickListener() {
             public void onClick(View v) {
-                loadPage(96, "cal");
+                loadPage(407, "cal");
             }
         };
 
@@ -80,13 +83,16 @@ public class MainActivity extends AppCompatActivity {
 
         View.OnClickListener notificationHandler = new View.OnClickListener() {
             public void onClick(View v) {
-                loadPage(390, "announce");
+                loadPage(412, "announce");
             }
         };
 
         View.OnClickListener galleryHandler = new View.OnClickListener() {
             public void onClick(View v) {
-                loadPage(280, "gallery");
+                Intent intent = new Intent(context, Post.class);
+                intent.putExtra("link", "https://bahainf.mystagingwebsite.com/gallery/");
+                intent.putExtra("div", "cat");
+                startActivity(intent);
             }
         };
 
