@@ -1,5 +1,5 @@
 //package name change it to youre own
-package com.example.shaany.reader;
+package com.example.yogesh.reader;
 
 //imports
 import android.app.ProgressDialog;
@@ -16,6 +16,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.yogesh.reader.R;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -26,6 +27,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import static android.R.attr.id;
 
 
 //main function
@@ -38,7 +41,7 @@ public class Post extends AppCompatActivity {
     String selection;
 
     //onCreate
-    @Override
+    //@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post);
@@ -64,66 +67,55 @@ public class Post extends AppCompatActivity {
         then just load the HTML "div" we want in the webview
         TODO this does'nt work
          */
-        if (div.equalsIgnoreCase("cat")) {
+        if (div.equalsIgnoreCase("cal")) {
             Connection.Response response = null;
-            try {
-                response = Jsoup.connect(link)
-                        .userAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.21 (KHTML, like Gecko) Chrome/19.0.1042.0 Safari/535.21")
-                        .timeout(10000)
-                        .execute();
-            } catch (IOException e) {
-                System.out.println("io - "+e);
-            }
+            content.loadUrl("https://bahainf.mystagingwebsite.com/new-calendar/");
+        }
 
-            try {
-                Document doc = response.parse();
-                Element stuff = doc.getElementById("idofgallery");
-                String load = stuff.toString();
-                content.loadData(load, "text/html", "UTF-8");
-            } catch (IOException e) {
-                System.out.println("io -"+e);
-            }
-            //if not load the json
-            //this part works
-        } else {
-            String url = "https://bahainf.mystagingwebsite.com/wp-json/wp/v2/pages/" + id + "";
+        else {
+            if (div.equalsIgnoreCase("gallery")) {
+                Connection.Response response = null;
+                content.loadUrl("https://bahainf.mystagingwebsite.com/gallery/");
 
-            StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String s) {
-                    gson = new Gson();
-                    mapPost = (Map<String, Object>) gson.fromJson(s, Map.class);
-                    mapContent = (Map<String, Object>) mapPost.get("content");
-                    //get the specific html to display
-                    selection = mapContent.toString();
-                    Document doc = Jsoup.parse(selection, "UTF-8");
-                    //if the div name is cat
-                    if (div.equals("cat")) {
-                        Elements stuff = doc.getAllElements();
-                        String load = stuff.toString();
-                        content.loadData(load, "text/html", "UTF-8");
-                        //if the div name isn't cat
-                    } else {
-                        Element stuff = doc.getElementById(div);
-                        //display it
-                        String load = stuff.toString();
-                        content.loadData(load, "text/html", "UTF-8");
+            } else {
+                String url = "https://bahainf.mystagingwebsite.com/wp-json/wp/v2/pages/" + id + "";
+
+                StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        gson = new Gson();
+                        mapPost = (Map<String, Object>) gson.fromJson(s, Map.class);
+                        mapContent = (Map<String, Object>) mapPost.get("content");
+                        //get the specific html to display
+                        selection = mapContent.toString();
+                        Document doc = Jsoup.parse(selection, "UTF-8");
+                        //if the div name is cat
+                        if (div.equals("cat")) {
+                            Elements stuff = doc.getAllElements();
+                            String load = stuff.toString();
+                            content.loadData(load, "text/html", "UTF-8");
+                            //if the div name isn't cat
+                        } else {
+                            Element stuff = doc.getElementById(div);
+                            //display it
+                            String load = stuff.toString();
+                            content.loadData(load, "text/html", "UTF-8");
+                        }
+
+                        progressDialog.dismiss();
+                        //if there's an error report it
                     }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        progressDialog.dismiss();
+                        Toast.makeText(Post.this, "Oh no! an error occurred loading this page", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                RequestQueue rQueue = Volley.newRequestQueue(Post.this);
+                rQueue.add(request);
 
-                    progressDialog.dismiss();
-                    //if there's an error report it
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError volleyError) {
-                    progressDialog.dismiss();
-                    Toast.makeText(Post.this, "Oh no! an error occurred loading this page", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-            RequestQueue rQueue = Volley.newRequestQueue(Post.this);
-            rQueue.add(request);
-
+            }
         }
     }
 }

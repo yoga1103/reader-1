@@ -1,4 +1,4 @@
-package com.example.shaany.reader;
+package com.example.yogesh.reader;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -7,6 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.content.Context;
+
+import com.example.yogesh.reader.R;
+
+import static android.R.attr.id;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     }
         //tells post.java what post to load
         public void loadPage(int id, String div) {
-            Intent intent = new Intent(getApplicationContext(),Post.class);
+            Intent intent = new Intent(getApplicationContext(), com.example.yogesh.reader.Post.class);
             intent.putExtra("id", ""+id);
             intent.putExtra("div", ""+div);
             startActivity(intent);
@@ -65,7 +69,11 @@ public class MainActivity extends AppCompatActivity {
 
         View.OnClickListener calendarHandler = new View.OnClickListener() {
             public void onClick(View v) {
+                //Intent intent = new Intent(getApplicationContext(), com.example.yogesh.reader.Post.class);
+                //intent.putExtra("id", ""+407);
+                //startActivity(intent);
                 loadPage(407, "cal");
+
             }
         };
 
@@ -88,11 +96,13 @@ public class MainActivity extends AppCompatActivity {
         };
 
         View.OnClickListener galleryHandler = new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(context, Post.class);
-                intent.putExtra("link", "https://bahainf.mystagingwebsite.com/gallery/");
-                intent.putExtra("div", "cat");
-                startActivity(intent);
+            public void onClick(View v) { loadPage(280, "gallery");
+
+//                Intent intent = new Intent(context, com.example.yogesh.reader.Post.class);
+//                intent.putExtra("link", "https://bahainf.mystagingwebsite.com/gallery/");
+                //                intent.putExtra("link", "https://photos.google.com/share/AF1QipMBo7UdhKvsruH2cQe36YQSdZbTT7avMvGIefmmbEY08_-P-BTdE9R9AJYAZGqdXg?key=RG5rNENMdGE0SDFpWjVWa0wyNHlRZFNIREozMzJn");
+                //intent.putExtra("div", "cat");
+//                startActivity(intent);
             }
         };
 
